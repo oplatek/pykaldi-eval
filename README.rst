@@ -5,18 +5,18 @@ We evaluate the dynamic properties of decoder e.g.
 Real Time Factor (RTF), Latency (LAT), Word Error Rate (WER)
 and Sentence Error Rate (SER) based on decoding parameters.
 
-We choose to intestigate the influence of 
+We choose to investigate the influence of 
  * beam
  * lattice-beam
  * max-active states
  * wave length
-On metrix RTF, LAT, WER and SER mentioned above.
+On metrics RTF, LAT, WER and SER mentioned above.
 
 We did not experiment with the Lexicon size and Language Model (LM)
-complexity, which certainly influence all the metrixs,
-but expecially the LM complexity is hard to describe and visualise.
+complexity, which certainly influence all the metrics,
+but especially the LM complexity is hard to describe and visualise.
 
-Note that decoding is language indipendent since the LM complexity
+Note that decoding is language independent since the LM complexity
 and lexicon size is fixed.
 We used LM TODO with lexicon size 17000 TODO?
 
@@ -30,7 +30,7 @@ from ``kaldi/src/pykaldi/pykaldi/binutils`` directory.
 TODO More describe test sets (So far I use the default from vystadial server)
 
 We suppose the code is run from subdirectory of ``binutils``, 
-so copy this repocitory to ``kaldi/src/pykaldi/pykaldi/binutils``.
+so copy this repository to ``kaldi/src/pykaldi/pykaldi/binutils``.
 
 .. code-block:: bash
 
