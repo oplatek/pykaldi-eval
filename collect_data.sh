@@ -15,9 +15,9 @@ pykaldi_dir=..
 #     for lb in 5.5 6 6.5 7 10 ; do 
 #         for ma in 2000 6000 12000 ; do
 
-pushd pykaldi_dir
+pushd $pykaldi_dir
 
-wav_scp=./data/vystadial-sample-cs/test/input.scp
+wav_scp=pykaldi-eval/test_16_wer/input.scp
 for lb in  7 7.5 8 9.5 11.5 ; do 
     for b in 13 14 15 16 16.5 ; do
         for ma in 2000 6000 12000 ; do
