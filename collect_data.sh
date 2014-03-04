@@ -18,7 +18,7 @@ pykaldi_dir=..
 pushd $pykaldi_dir
 
 wav_scp=pykaldi-eval/test_16_wer/input.scp
-for lb in  7 7.5 8 9.5 11.5 ; do 
+for lb in  2 3 4.5 5 6 ; do 
     for b in 13 14 15 16 16.5 ; do
         for ma in 2000 6000 12000 ; do
             echo; echo "Running for $wav_scp:"
