@@ -14,25 +14,50 @@ pykaldi_dir=..
 # Used args Alex PTICS
 # --max-mem=10000000000 --lat-lm-scale=10 --beam=12.0 --lattice-beam=6.0 --max-active=5000', 
 # pg CLASS LM weight 0.8 uniform sub sampling td 0.90 tri2b_bmmi
+
 pushd $pykaldi_dir
 
-# TODO create test input_few.scp with few utterances
-# TODO binutils so it does not override temporary files
-# TODO parallelize it and test it on input_few.scp
-wav_scp=pykaldi-eval/test_16_wer/input.scp
+# source the settings
+. path.sh
 
+. utils/parse_options.sh || exit 1
 
-for ma in 5000 2000 8000 ; do
-    for lb in 1 2 3 4.5 6 7 8 10 ; do 
+wav_scp=pykaldi-eval/test_16_wer/input_few.scp
+# wav_scp=pykaldi-eval/test_16_wer/input.scp
+
+# reference is named based on wav_scp
+./build_reference.py $wav_scp $decode_dir
+reference=$decode_dir/`basename $wav_scp`.tra
+
+mkdir -p pykaldi-eval/log pykaldi-eval/kern-log pykaldi-eval/tmp
+
+# for ma in 5000 2000 8000 ; do
+#     for lb in 1 2 3 4 5 6 7 8 10 ; do 
+for ma in 2000 ; do
+    for lb in 1 2 ; do 
         for b in 8 9 10 13 16 ; do
-            echo; echo "Running for $wav_scp:"
-            echo "lb $lb ; b $b ; ma $ma"; echo
 
-            ./run_pykaldi-latgen-faster-decoder.sh \
-                --wav_scp $wav_scp --latbeam $lb --beam $b --max_active $ma \
-                || exit 1
+
+        logname=b${b}_lb${lb}_ma${ma}_bs${batch_size}
+        pykaldi_latgen_tra=pykaldi-eval/tmp/$$.$logname.tra
+        log=pykaldi-eval/log/$$.$logname.log
+
+        echo > $log 
+        echo "Running for $wav_scp:" | tee --append $log
+        echo >> $log
+        echo "lb $lb ; b $b ; ma $ma" | tee --append $log
+
+        (
+        kernprof.py -o pykaldi-eval/kern-log/kern_prof_${logname}.log -l -v \
+          pykaldi-latgen-faster-decoder.py $wav_scp $batch_size $pykaldi_latgen_tra $WST \
+            --verbose=0  --max-mem=500000000 --lat-lm-scale=15 --config=$MFCC \
+            --beam=$beam --lattice-beam=$latbeam --max-active=$max_active \
+            $AM $HCLG `cat $SILENCE` $MAT ; 
+        compute-wer --text --mode=present ark:$reference ark,p:$pykaldi_latgen_tra 
+        ) >> $log  || exit 1 &
 
         done
+        wait  # launch paralel number of job of inner
     done
 done
 
