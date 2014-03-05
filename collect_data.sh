@@ -18,17 +18,18 @@ pykaldi_dir=..
 pushd $pykaldi_dir
 
 wav_scp=pykaldi-eval/test_16_wer/input.scp
-for lb in  7 7.5 8 9.5 11.5 ; do 
+        # for ma in 2000 6000 12000 ; do
+for lb in  2 3 4.5 6 8 10 ; do 
     for b in 13 14 15 16 16.5 ; do
-        for ma in 2000 6000 12000 ; do
-            echo; echo "Running for $wav_scp:"
-            echo "lb $lb ; b $b ; ma $ma"; echo
+        echo; echo "Running for $wav_scp:"
+        echo "lb $lb ; b $b ; ma $ma"; echo
 
-            # all 50 recodings
-            ./run_pykaldi-latgen-faster-decoder.sh --wav_scp $wav_scp --latbeam $lb --beam $b --max_active $ma || exit 1
+        # all 50 recodings
+        ./run_pykaldi-latgen-faster-decoder.sh --wav_scp $wav_scp --latbeam $lb --beam $b || exit 1
+        # ./run_pykaldi-latgen-faster-decoder.sh --wav_scp $wav_scp --latbeam $lb --beam $b --max_active $ma || exit 1
 
-        done
     done
 done
+# done
 
 popd
