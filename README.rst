@@ -2,7 +2,7 @@ Evaluation of GmmLatgenWrapper and its Python wrapper PyGmmLatgenWrapper
 ========================================================================
 
 See the (intermediate) results at
-http://nbviewer.ipython.org/github/oplatek/pykaldi-eval/blob/master/Pykaldi-evaluation%204th%20run.ipynb
+http://nbviewer.ipython.org/github/oplatek/pykaldi-eval/blob/master/Pykaldi-evaluation.ipynb
 
 We evaluate the dynamic properties of decoder e.g. 
 Real Time Factor (RTF), Latency (LAT), Word Error Rate (WER)
