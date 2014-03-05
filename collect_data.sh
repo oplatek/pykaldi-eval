@@ -16,11 +16,15 @@ pykaldi_dir=..
 # pg CLASS LM weight 0.8 uniform sub sampling td 0.90 tri2b_bmmi
 pushd $pykaldi_dir
 
+# TODO create test input_few.scp with few utterances
+# TODO binutils so it does not override temporary files
+# TODO parallelize it and test it on input_few.scp
 wav_scp=pykaldi-eval/test_16_wer/input.scp
-        # for ma in 2000 6000 12000 ; do
+
+
 for ma in 5000 2000 8000 ; do
-    for lb in  2 3 4.5 6 7 8 ; do 
-        for b in 8 11 12 13 16 ; do
+    for lb in 1 2 3 4.5 6 7 8 10 ; do 
+        for b in 8 9 10 13 16 ; do
             echo; echo "Running for $wav_scp:"
             echo "lb $lb ; b $b ; ma $ma"; echo
 
