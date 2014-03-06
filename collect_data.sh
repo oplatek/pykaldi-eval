@@ -2,7 +2,6 @@
 
 echo "Running various experiments for:"
 echo "beam (b), lattice-beam (lb), max-active (ma)"
-echo "and 50 test utterances"
 echo ""
 
 echo "Two experiments:"
@@ -22,20 +21,18 @@ pushd $pykaldi_dir
 
 . utils/parse_options.sh || exit 1
 
-# wav_scp=pykaldi-eval/test_16_wer/input_few.scp
-wav_scp=pykaldi-eval/test_16_wer/input.scp
+wav_scp=pykaldi-eval/test_30_wer_new/input_few.scp
+# wav_scp=pykaldi-eval/test_16_wer/input.scp
 
 # reference is named based on wav_scp
 ./build_reference.py $wav_scp $decode_dir
 reference=$decode_dir/`basename $wav_scp`.tra
 
-beams="8 9 10 11 12 13 14 15 16"
+beams="8 9 10 11 12 13 16"
 mkdir -p pykaldi-eval/log pykaldi-eval/kern-log pykaldi-eval/tmp
 
 for ma in 5000 2000 8000 ; do
     for lb in 1 2 3 4 5 6 7 8 10 ; do 
-# for ma in 2000 ; do
-#     for lb in 1 ; do 
         for b in $beams ; do
             logname=b${b}_lb${lb}_ma${ma}_bs${batch_size}
             pykaldi_latgen_tra=pykaldi-eval/tmp/$$.$logname.tra
