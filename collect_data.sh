@@ -46,7 +46,7 @@ for ma in 5000 2000 8000 ; do
 
             kernprof.py -o pykaldi-eval/kern-log/kern_prof_${logname}.log -l -v \
               pykaldi-latgen-faster-decoder.py $wav_scp $batch_size $pykaldi_latgen_tra $WST \
-                --verbose=0  --max-mem=10000000000 --lat-lm-scale=15 --config=$MFCC \
+                --verbose=0  --max-mem=1000000000000 --lat-lm-scale=15 --config=$MFCC \
                 --beam=$beam --lattice-beam=$latbeam --max-active=$max_active \
                 $AM $HCLG `cat $SILENCE` $MAT  >> $log &
         done
