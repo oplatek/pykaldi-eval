@@ -21,7 +21,8 @@ pushd $pykaldi_dir
 
 . utils/parse_options.sh || exit 1
 
-wav_scp=pykaldi-eval/test_30_wer_new/input_few.scp
+wav_scp=pykaldi-eval/test_30_wer_new/input.scp
+# wav_scp=pykaldi-eval/test_30_wer_new/input_few.scp
 # wav_scp=pykaldi-eval/test_16_wer/input.scp
 
 # reference is named based on wav_scp
