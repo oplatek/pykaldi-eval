@@ -51,10 +51,15 @@ def parse(log_file_path):
                 # backward decoding = prune_final + get_lattice
                 backwardlen = rec.backwardlen + get_lattice_sys_time
                 rec = rec._replace(backwardlen=backwardlen)
+            # TODO delete (for compute-wer which was superseded by asrscore
             if line.startswith('%WER'):
                 start, ins, dl, sub = line.split(',')
                 refer_words, ins, dl, sub = int(
                     start.split()[-1]), int(ins.split()[0]), int(dl.split()[0]), int(sub.split()[0])
+                rec = rec._replace(refer_words=refer_words, ins=ins, dl=dl, sub=sub)
+            if line.startswith('| Sum/Avg'):
+                ref_words, sub, dl, ins = line.split('|')[2, 4, 5, 6]
+                refer_words, ins, dl, sub = int(ref_words), int(ins), int(dl), int(sub)
                 rec = rec._replace(refer_words=refer_words, ins=ins, dl=dl, sub=sub)
             if line.startswith('%SER'):
                 ser = float(line.split()[1])

@@ -57,7 +57,7 @@ for ma in 5000 2000 8000 ; do
             logname=b${b}_lb${lb}_ma${ma}_bs${batch_size}
             pykaldi_latgen_tra=pykaldi-eval/tmp/$$.$logname.tra
             log=pykaldi-eval/log/$$.$logname.log
-            compute-wer --text --mode=present ark:$reference ark,p:$pykaldi_latgen_tra >> $log &
+            pykaldi-eval/asrscore.py $reference $pykaldi_latgen_tra >> $log
         done
     done
 done
