@@ -22,10 +22,10 @@ UserRecord = namedtuple(
 def parse(log_file_path):
     rec, urec, urecords, records = None, None, [], []
     with open(log_file_path, 'r') as r:
-        for line in r:
+        for i, line in enumerate(r):
             if line.startswith('Running for '):
                 if rec is not None:
-                    raise Exception('Bad logic: not finished parsing previous record')
+                    raise Exception('Bad logic: not finished parsing previous user time record\nline %d: %s\n' % (i, line))
                 wav_scp = line[12:-1]  # After Running for and without :
                 rec = SysRecord(wav_scp, None, None, None, None, None,
                                 None, None, None, None, None, None, None)
@@ -71,7 +71,7 @@ def parse(log_file_path):
                 wav_name, has, wav_len, sec = line.split()
                 assert has == 'has' and sec == 'sec', 'Parsing bad line'
                 if urec is not None:
-                    raise Exception('Bad logic: not finished parsing previous user time record\n%s\n' % line)
+                    raise Exception('Bad logic: not finished parsing previous user time record\nline %d: %s\n' % (i, line))
                 urec = UserRecord(wav_name=wav_name, wav_len=float(wav_len), beam=rec.beam,
                                   lattice_beam=rec.lattice_beam, max_active=rec.max_active, forwardlen=None, backwardlen=None)
             if line.startswith('forward decode:'):
