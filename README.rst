@@ -28,12 +28,12 @@ Technical details
 ~~~~~~~~~~~~~~~~~
 The evaluation is perform using the ``pykaldi-latgen-faster-decoder.py``
 and its launcher ``run_pykaldi-latgen-faster-decoder.sh`` 
-from ``kaldi/src/pykaldi/pykaldi/binutils`` directory.
+from ``kaldi/egs/vystadial/online_demo`` directory.
 
 TODO More describe test sets (So far I use the default from vystadial server)
 
-We suppose the code is run from subdirectory of ``binutils``, 
-so copy this repository to ``kaldi/src/pykaldi/pykaldi/binutils``.
+We suppose the code is run from subdirectory of ``online_demo``, 
+so copy this repository to ``kaldi/egs/vystadial/online_demo``.
 
 .. code-block:: bash
 
